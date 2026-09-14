@@ -131,15 +131,6 @@ export const animate = function () {
       music.loop = true;
       music.play();
 
-      if (!process.env.SCROLL_MSG) {
-        frames[0].style.display = "flex";
-        setTimeout(() => {
-          frames[0].classList.add("appear");
-          frames[0].style.opacity = "1";
-        }, 1500);
-        return;
-      }
-
       //This value is stored in the --readTime css variable of root element and is calculated dynamically at build time.
       const readTime =
         parseInt(
