@@ -44,7 +44,7 @@ const setRemoteData = async () => {
         responseType: "arraybuffer",
       });
       pic = res.data;
-    } else {
+    } else if (fs.existsSync(defaultPicPath)) {
       pic = fs.readFileSync(defaultPicPath);
     }
     let markup = "";
@@ -58,11 +58,11 @@ const setRemoteData = async () => {
         (string, node) => string + generateMarkupRemote(node),
         ""
       );
-    } else {
+    } else if (fs.existsSync(defaultMsgPath)) {
       const text = fs.readFileSync(defaultMsgPath, { encoding: "utf-8" });
       markup = generateMarkupLocal(text);
     }
-    await setPic(pic);
+    if (pic) await setPic(pic);
     genIndex(markup);
   } catch (e) {
     throw new Error(e.message);
